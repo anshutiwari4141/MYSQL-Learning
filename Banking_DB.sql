@@ -46,4 +46,84 @@ Describe Transactions;
 describe Branches;
 describe AccountBranches;
 describe Loans;
+ALTER TABLE Customers
+ADD DateOfBirth DATE;
+
+describe Customers;
+
+ALTER TABLE Customers
+MODIFY Phone VARCHAR(20);
+
+ALTER TABLE Accounts
+ADD CONSTRAINT chk_MinBalance
+CHECK (Balance >= 1000);
+
+
+DROP TABLE AccountBranches;
+
+ALTER TABLE Customers
+ADD PRIMARY KEY (CustomerID);
+
+ALTER TABLE Accounts
+ADD CustomerID INT;
+
+ALTER TABLE Accounts
+ADD CONSTRAINT FK_Accounts_Customers
+FOREIGN KEY (CustomerID)
+REFERENCES Customers(CustomerID);
+
+ALTER TABLE Customers
+MODIFY FirstName VARCHAR(50) NOT NULL;
+
+ALTER TABLE Customers
+ADD CONSTRAINT uq_Email UNIQUE (Email);
+
+-- ####### 
+-- primary key 
+-- Add Primary Keys
+ALTER TABLE Accounts
+ADD CONSTRAINT PK_Accounts
+PRIMARY KEY (AccountID);
+
+ALTER TABLE Transactions
+ADD CONSTRAINT P_KTransactions
+PRIMARY KEY (TransactionID);
+ 
+ alter table Transactions drop primary key;
+ 
+ALTER TABLE Branches
+ADD CONSTRAINT PK_Branches
+PRIMARY KEY (BranchID);
+
+ALTER TABLE Loans
+ADD CONSTRAINT PK_Loans
+PRIMARY KEY (LoanID);
+
+-- Add Required Columns
+
+
+ALTER TABLE Transactions
+ADD AccountID INT;
+
+ALTER TABLE Loans
+ADD CustomerID INT;
+
+
+ALTER TABLE Transactions
+ADD CONSTRAINT FK_Transactions_Accounts
+FOREIGN KEY (AccountID)
+REFERENCES Accounts(AccountID);
+
+ALTER TABLE Loans
+ADD CONSTRAINT FK_Loans_Customers
+FOREIGN KEY (CustomerID)
+REFERENCES Customers(CustomerID);
+
+ALTER TABLE Accounts
+ADD BranchID INT;
+
+
+
+
+
 
