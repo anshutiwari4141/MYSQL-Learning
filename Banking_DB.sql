@@ -77,6 +77,7 @@ MODIFY FirstName VARCHAR(50) NOT NULL;
 
 ALTER TABLE Customers
 ADD CONSTRAINT uq_Email UNIQUE (Email);
+Alter table Customers add DateOfBirth date;
 
 -- ####### 
 -- primary key 
@@ -121,6 +122,75 @@ REFERENCES Customers(CustomerID);
 
 ALTER TABLE Accounts
 ADD BranchID INT;
+
+ALTER TABLE Accounts
+ADD CONSTRAINT FK_Accounts_Branches
+FOREIGN KEY (BranchID)
+REFERENCES Branches(BranchID);
+
+INSERT INTO Customers
+(CustomerID, FirstName, LastName, Email, Phone, DateOfBirth)
+VALUES
+(101,'Rahul','Sharma','rahul@gmail.com','9876543210','1998-04-15');
+
+INSERT INTO Accounts
+(AccountID, CustomerID, AccountType, Balance)
+VALUES
+(201,101,'Savings',25000);
+SELECT * FROM ACCOUNTS;
+
+UPDATE Customers
+SET Phone='9999999999'
+WHERE CustomerID=101;
+
+select * from customers;
+
+UPDATE Customers
+SET Email='rahul.sharma@gmail.com'
+WHERE CustomerID=101;
+
+-- Insert 4 Records into Customers Table
+
+INSERT INTO Customers
+(CustomerID, FirstName, LastName, Email, Phone, DateOfBirth)
+VALUES
+(102, 'Priya', 'Patil', 'priya@gmail.com', '9988776655', '2000-09-20'),
+(103, 'Amit', 'Patel', 'amit.patel@gmail.com', '9876500001', '1995-06-18'),
+(104, 'Sneha', 'Joshi', 'sneha.joshi@gmail.com', '9876500002', '1997-09-12'),
+(105, 'Rohan', 'Kulkarni', 'rohan.k@gmail.com', '9876500003', '1993-11-25');
+select * from Customers;
+
+-- Insert 4 Records into Accounts Table
+INSERT INTO Accounts
+(AccountID, CustomerID, AccountType, Balance)
+VALUES
+(202, 102, 'Current', 40000),
+(203, 103, 'Savings', 35000),
+(204, 104, 'Current', 60000),
+(205, 105, 'Savings', 45000);
+
+-- Insert 5 Records into Transactions Table
+
+INSERT INTO Transactions
+(TransactionID, AccountID, TransactionDate, Amount, TransactionType)
+VALUES
+(301, 201, '2025-05-10', 5000, 'Deposit'),
+(302, 202, '2025-05-11', 2500, 'Withdraw'),
+(303, 203, '2025-05-12', 10000, 'Deposit'),
+(304, 204, '2025-05-13', 3000, 'Withdraw'),
+(305, 205, '2025-05-14', 7000, 'Deposit');
+use bankingdb;
+SELECT * FROM Branches;
+TRUNCATE TABLE Branches;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DELETE FROM Branches;
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+
 
 
 
