@@ -188,7 +188,93 @@ SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM Branches;
 SET FOREIGN_KEY_CHECKS = 1;
 
+SELECT * FROM Accounts;
+INSERT INTO Branches
+(BranchID, BranchName, BranchAddress, BranchPhone)
+VALUES
+(1, 'Mumbai Branch', 'Andheri, Mumbai', '0221111111'),
+(2, 'Pune Branch', 'Shivaji Nagar, Pune', '0202222222'),
+(3, 'Nashik Branch', 'College Road, Nashik', '0253222222'),
+(4, 'Nagpur Branch', 'Sitabuldi, Nagpur', '0712333333'),
+(5, 'Navi Mumbai Branch', 'Vashi, Navi Mumbai', '0224444444');
 
+ALTER TABLE Loans
+ADD CustomerID INT;
+
+INSERT INTO Loans
+(LoanID, LoanAmount, InterestRate, StartDate, EndDate, CustomerID)
+VALUES
+(301, 500000, 8.50, '2025-01-15', '2030-01-15', 101),
+(302, 300000, 9.25, '2025-02-10', '2028-02-10', 102),
+(303, 750000, 8.75, '2025-03-20', '2032-03-20', 103),
+(304, 250000, 10.00, '2025-04-05', '2029-04-05', 104),
+(305, 1000000, 7.95, '2025-05-12', '2035-05-12', 105);
+
+SELECT * FROM Customers;
+SELECT FirstName, LastName, Email, Phone
+FROM Customers;
+
+SELECT *
+FROM Accounts
+WHERE AccountType = 'Savings';
+
+SELECT * FROM Accounts
+WHERE Balance > 25000;
+
+SELECT * FROM Transactions
+WHERE Amount BETWEEN 5000 AND 20000;
+
+SELECT * FROM Customers
+WHERE CustomerID IN (101,102,103);
+
+SELECT * FROM Customers
+WHERE FirstName LIKE 'R%';
+
+SELECT * FROM Customers
+ORDER BY FirstName ASC;
+
+SELECT * FROM Accounts
+ORDER BY Balance DESC;
+
+SELECT DISTINCT AccountType
+FROM Accounts;
+
+SELECT * FROM Accounts
+ORDER BY Balance DESC
+LIMIT 3;
+
+SELECT * FROM Transactions
+LIMIT 5 OFFSET 2;
+
+SELECT * FROM Customers
+WHERE Phone IS NULL;
+
+SELECT * FROM Customers
+WHERE Email IS NOT NULL;
+
+SELECT AccountID,
+       Balance,
+       CASE
+           WHEN Balance >= 50000 THEN 'Premium Account'
+           WHEN Balance >= 25000 THEN 'Standard Account'
+           ELSE 'Basic Account'
+       END AS AccountCategory
+FROM Accounts;
+
+SELECT AccountID,
+       Balance,
+       RANK() OVER (ORDER BY Balance DESC) AS BalanceRank
+FROM Accounts;
+
+SELECT TransactionID,
+       Amount,
+       SUM(Amount) OVER (ORDER BY TransactionDate) AS RunningTotal
+FROM Transactions;
+
+SELECT TransactionID,
+       Amount,
+       AVG(Amount) OVER () AS AverageTransaction
+FROM Transactions;
 
 
 
