@@ -276,6 +276,48 @@ SELECT TransactionID,
        AVG(Amount) OVER () AS AverageTransaction
 FROM Transactions;
 
+use employee;
+select distinct department, gender from employee;
+select distinct gender from employee;
+select distinct age from employee;
+select * from employee where age not in (23,28);
+select * from employee where salary between 40000 AND 60000;
+SELECT * FROM EMPLOYEE WHERE AGE BETWEEN 25 AND 45;
+SELECT * FROM EMPLOYEE WHERE EMPLOYEEID IN (1004,1007,1003,1010);
+
+-- show me all the records of emp
+
+select * from employee where employeeid not in (1004,1007,1003,1010);
+select * from employee
+where fullname like "A%";
+
+select * from employee
+where fullname like "Y%";
+
+select * from employee
+where fullname like "%I%";
+
+select * from employee 
+where fullname like "%L__%";
+
+select * from employee
+where fullname not like "P%";
+
+select * from projects;
+
+select * from projects
+where Employeeid is null;
+
+select * from projects 
+where employeeid is not null; 
+
+select department, count(*) from employee group by department;
+select department, count(*) from employee group by department having count(*)>2;
+
+select state, count(*) from address group by state having state;
+
+
+
 
 
 
